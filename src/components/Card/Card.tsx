@@ -7,9 +7,10 @@ type Props = {
     id: number;
     onClick: (arg: null | number) => void;
     selectCard: null | number;
+    filterCards: (arg: string) => void;
 }
 
-export const Card: React.FC<Props> = ({ category, name, image, onClick, id, selectCard }) => {
+export const Card: React.FC<Props> = ({ category, name, image, onClick, id, selectCard, filterCards }) => {
 
     const selectCardHundler = () => {
         if (selectCard === id) {
@@ -17,12 +18,13 @@ export const Card: React.FC<Props> = ({ category, name, image, onClick, id, sele
         } else {
             onClick(id);
         }
-
     }
+
+
 
     return (
         <div className={selectCard === id ? `${styles.container} ${styles.selected}` : `${styles.container}`} style={{ backgroundImage: `url(${image})` }} onClick={selectCardHundler}>
-            <div className={styles.cetegoryOuter}><p className={styles.category}><p>{category}</p></p></div>
+            <div className={styles.cetegoryOuter}><p className={styles.category} onClick={() => { filterCards(category) }}><p>{category}</p></p></div>
             <p className={styles.name}>{name}</p>
         </div>
     )

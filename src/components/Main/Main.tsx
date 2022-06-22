@@ -1,12 +1,12 @@
 import styles from "./Main.module.css";
 import { Container } from "../Container/Container";
 import { Card } from "../Card/Card";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { cards } from "./CardsData"
 
-type Category = "Show All" | "Design" | "Branding" | "Illustration" | "Motion";
 type CateoryList = {
     id: number;
-    name: Category;
+    name: string;
 }[];
 
 const categories: CateoryList = [
@@ -17,44 +17,36 @@ const categories: CateoryList = [
     { id: 4, name: "Motion" },
 ]
 
-const cards = [
-    { id: 0, name: "SOFA", category: "Design", image: "image/categories/1.png" },
-    { id: 1, name: "KeyBoard", category: "Branding", image: "image/categories/2.png" },
-    { id: 2, name: "Work Media", category: "Illustration", image: "image/categories/3.png" },
-    { id: 3, name: "DDDone", category: "Motion", image: "image/categories/4.png" },
-    { id: 4, name: "Abstract", category: "Design", image: "image/categories/5.png" },
-    { id: 5, name: "HandP", category: "Branding", image: "image/categories/6.png" },
-    { id: 6, name: "Architect", category: "Motion", image: "image/categories/7.png" },
-    { id: 7, name: "CalC", category: "Design", image: "image/categories/8.png" },
-    { id: 8, name: "Sport", category: "Branding", image: "image/categories/9.png" },
-]
-
 export const Main = () => {
 
     const [selectCard, setSelectCard] = useState<number | null>(null);
     const [cardData, setCardData] = useState(cards);
+    const [activeCategory, setActiveCategory] = useState<string>("Show All");
+    const [lastCardId, setlastCardId] = useState<number>(9);
 
-    const filterCards = (currentCategory: Category) => {
+    const filterCards = (currentCategory: string) => {
         let filtredCards = cards;
         filtredCards = cards.filter(({ category }) => {
             if ((category === currentCategory) || (currentCategory === "Show All")) {
                 return true
             }
         })
+        setActiveCategory(currentCategory);
         setCardData(filtredCards);
+        setlastCardId(9);
     }
 
     return (
         <div className={styles.outerContainer}>
             <Container>
                 <ul className={styles.categories}>
-                    {categories.map(({ id, name }) => <li className={styles.category} key={id} onClick={() => { filterCards(name) }}>{name}</li>)}
+                    {categories.map(({ id, name }) => <li className={name === activeCategory ? `${styles.category} ${styles.active}` : `${styles.category}`} key={id} onClick={() => { filterCards(name) }}>{name}</li>)}
                 </ul>
 
                 <div className={styles.cards}>
-                    {cardData.map(({ id, name, category, image }) => <Card name={name} category={category} image={image} key={id} onClick={setSelectCard} selectCard={selectCard} id={id} />)}
+                    {cardData.map(({ id, name, category, image }) => (id < lastCardId ? <Card name={name} category={category} image={image} key={id} onClick={setSelectCard} selectCard={selectCard} id={id} filterCards={filterCards} /> : ""))}
                 </div>
-                <div className={styles.loadMoreBtnBlock}><a className={styles.loadMoreBtn}><p>Load More</p></a></div>
+                <div className={styles.loadMoreBtnBlock}><a className={styles.loadMoreBtn} onClick={() => { setlastCardId(lastCardId + 9) }}><p>Load More</p></a></div>
             </Container>
         </div>
     )
