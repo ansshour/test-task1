@@ -1,0 +1,60 @@
+.outerContainer {
+    background-color: #FDF0E9;
+    color: #806354;
+    transition: 0.3s;
+    padding-top: 85px;
+    padding-bottom: 185px;
+}
+
+.categories {
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+    padding-bottom: 75px;
+}
+
+.category {
+    cursor: pointer;
+}
+
+.category:hover {
+    color: #5a453b;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    margin-bottom: 80px;
+}
+
+.loadMoreBtn {
+    display: flex;
+    text-transform: uppercase;
+    width: 170px;
+    height: 48px;
+    color: #391400;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 5px;
+    font-weight: 900;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 4px 0px rgba(34, 60, 80, 0.2);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.loadMoreBtn:hover {
+    color: #481a01;
+}
+
+.loadMoreBtn p {
+    transform: translateY(1.5px);
+}
+
+.loadMoreBtnBlock {
+    display: flex;
+    justify-content: center;
+}
