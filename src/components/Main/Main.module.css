@@ -82,6 +82,7 @@
     width: 100%;
     margin-bottom: 48px;
     overflow: hidden;
+    pointer-events: none;
 }
 
 .item {
@@ -109,6 +110,7 @@
 .open {
     position: relative;
     transform: translateY(0px);
+    pointer-events: all;
 }
 
 .activeItem {
@@ -117,6 +119,7 @@
     border-radius: 5px;
     cursor: pointer;
     position: relative;
+    pointer-events: all;
 }
 
 .activeItem:hover {

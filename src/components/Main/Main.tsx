@@ -1,8 +1,9 @@
 import styles from "./Main.module.css";
 import { Container } from "../Container/Container";
 import { Card } from "../Card/Card";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cards } from "./CardsData"
+import { deleteCard } from "./CardsData";
 
 type CateoryList = {
     id: number;
@@ -24,6 +25,17 @@ export const Main = () => {
     const [activeCategory, setActiveCategory] = useState<string>("Show All");
     const [lastCardId, setlastCardId] = useState(9);
     const [listOpen, setListOpen] = useState(false);
+
+    useEffect(() => {
+        document.addEventListener("keyup", (e) => {
+            if (e.key === "Delete") {
+                const temp = activeCategory;
+                deleteCard(selectCard)
+                setCardData(cards)
+                filterCards(temp)
+            }
+        })
+    }, [selectCard])
 
     const filterCards = (currentCategory: string) => {
         let filtredCards = cards;
