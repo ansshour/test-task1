@@ -12,6 +12,7 @@
     background-size: cover;
     background-position: center;
     cursor: pointer;
+    padding-right: 15px;
 }
 
 .category {
@@ -40,4 +41,11 @@
 .container.selected {
     /* outline: 4px solid #4fe24a; */
     box-shadow: 0px 0px 10px 1px rgba(79, 226, 74, 1);
+}
+
+@media (max-width: 400px) {
+    .container {
+        width: 100%;
+        height: 325px;
+    }
 }

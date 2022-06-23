@@ -1,7 +1,7 @@
 import styles from "./Main.module.css";
 import { Container } from "../Container/Container";
 import { Card } from "../Card/Card";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { cards } from "./CardsData"
 
 type CateoryList = {
@@ -22,7 +22,8 @@ export const Main = () => {
     const [selectCard, setSelectCard] = useState<number | null>(null);
     const [cardData, setCardData] = useState(cards);
     const [activeCategory, setActiveCategory] = useState<string>("Show All");
-    const [lastCardId, setlastCardId] = useState<number>(9);
+    const [lastCardId, setlastCardId] = useState(9);
+    const [listOpen, setListOpen] = useState(false);
 
     const filterCards = (currentCategory: string) => {
         let filtredCards = cards;
@@ -34,6 +35,7 @@ export const Main = () => {
         setActiveCategory(currentCategory);
         setCardData(filtredCards);
         setlastCardId(9);
+        setListOpen(false);
     }
 
     return (
@@ -42,9 +44,17 @@ export const Main = () => {
                 <ul className={styles.categories}>
                     {categories.map(({ id, name }) => <li className={name === activeCategory ? `${styles.category} ${styles.active}` : `${styles.category}`} key={id} onClick={() => { filterCards(name) }}>{name}</li>)}
                 </ul>
+                <div className={styles.categoriesMobile}>
+                    <div className={styles.pulloutList}>
+                        <div className={`${styles.activeItem} ${styles.item}`} onClick={() => { setListOpen(!listOpen) }}><p>{activeCategory}</p><span className={listOpen ? `${styles.arrow} ${styles.rotate}` : `${styles.arrow}`}></span></div>
+                        <div className={listOpen ? `${styles.items} ${styles.open}` : `${styles.items}`}>
+                            {categories.map(({ name, id }) => (activeCategory !== name ? <div className={styles.item} key={id} onClick={() => { filterCards(name) }}>{name}</div> : ""))}
+                        </div>
+                    </div>
+                </div>
 
                 <div className={styles.cards}>
-                    {cardData.map(({ id, name, category, image }) => (id < lastCardId ? <Card name={name} category={category} image={image} key={id} onClick={setSelectCard} selectCard={selectCard} id={id} filterCards={filterCards} /> : ""))}
+                    {cardData.map(({ id, name, category, image }, i) => (i < lastCardId ? <Card name={name} category={category} image={image} key={id} onClick={setSelectCard} selectCard={selectCard} id={id} filterCards={filterCards} /> : ""))}
                 </div>
                 <div className={styles.loadMoreBtnBlock}><a className={styles.loadMoreBtn} onClick={() => { setlastCardId(lastCardId + 9) }}><p>Load More</p></a></div>
             </Container>

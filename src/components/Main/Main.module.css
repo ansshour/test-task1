@@ -14,6 +14,7 @@
     gap: 60px;
     justify-content: center;
     padding-bottom: 75px;
+    flex-wrap: wrap;
 }
 
 .category {
@@ -29,15 +30,14 @@
 }
 
 .cards {
-    /* display: flex;
-    flex-wrap: wrap; */
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 30px;
-    /* justify-content: center; */
     margin-bottom: 80px;
     justify-items: center;
-    grid-column-gap: 30px;
+    margin: auto;
+    margin-bottom: 80px;
+    width: 100%;
 }
 
 .loadMoreBtn {
@@ -71,9 +71,98 @@
     justify-content: center;
 }
 
-@media (max-width: 1170px) {
+.categoriesMobile {
+    position: relative;
+    width: 100%;
+    height: 130px;
+}
+
+.pulloutList {
+    position: absolute;
+    width: 100%;
+    margin-bottom: 48px;
+    overflow: hidden;
+}
+
+.item {
+    padding: 28px;
+    background-color: white;
+    position: relative;
+    width: 100%;
+    z-index: 10;
+    border: 1px solid rgba(211, 211, 211, 0.1);
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.item:hover {
+    background-color: #f9f9f9
+}
+
+.items {
+    width: 100%;
+    transition: 0.3s;
+    transform: translateY(-100%);
+    z-index: 3;
+}
+
+.open {
+    position: relative;
+    transform: translateY(0px);
+}
+
+.activeItem {
+    border: 1px solid #ef6c58a6;
+    z-index: 4;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+.activeItem:hover {
+    background-color: white;
+}
+
+.arrow {
+    border: 7px solid transparent;
+    border-bottom: 10px solid #EF6D58;
+    position: absolute;
+    right: 20px;
+    top: 30px;
+    transform: rotate(180deg);
+    transition: 0.3s;
+}
+
+.arrow.rotate {
+    transform: rotate(0deg);
+}
+
+@media (max-width: 1600px) {
+    .cards {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (max-width: 1200px) {
     .cards {
         grid-template-columns: 1fr 1fr;
-        max-width: 750px;
+    }
+}
+
+@media (max-width: 790px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 1040px) {
+    .categories {
+        display: none;
+    }
+}
+
+@media (min-width: 1040px) {
+    .categoriesMobile {
+        display: none;
     }
 }
