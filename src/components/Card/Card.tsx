@@ -24,7 +24,7 @@ export const Card: React.FC<Props> = ({ category, name, image, onClick, id, sele
 
     return (
         <div className={selectCard === id ? `${styles.container} ${styles.selected}` : `${styles.container}`} style={{ backgroundImage: `url(${image})` }} onClick={selectCardHundler}>
-            <div className={styles.cetegoryOuter}><p className={styles.category} onClick={() => { filterCards(category) }}><p>{category}</p></p></div>
+            <div className={styles.cetegoryOuter}><div className={styles.category} onClick={() => { filterCards(category) }}><p>{category}</p></div></div>
             <p className={styles.name}>{name}</p>
         </div>
     )
